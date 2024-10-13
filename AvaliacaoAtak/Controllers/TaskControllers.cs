@@ -29,7 +29,7 @@ namespace AvaiacaoAtak.Controllers
 
             if (task == null)
             {
-                return NotFound();
+                return NotFound("Task not founded or invalid Id task number.");
             }
 
             return Ok(task);
@@ -40,7 +40,7 @@ namespace AvaiacaoAtak.Controllers
         {
             if (!Enum.TryParse(typeof(Status), status, true, out var parsedStatus))
             {
-                return BadRequest("Invalid status provided.");
+                return BadRequest("Invalid status provided. Accepted values are: 0 = Pending, 1  = InProgress, 2 = Done.");
             }
 
             var tasks = await _taskService.GetTasksByStatusAsync((Status)parsedStatus);
@@ -50,6 +50,12 @@ namespace AvaiacaoAtak.Controllers
         [HttpPost]
         public async Task<ActionResult<TaskModel>> Create(TaskModel taskModel)
         {
+
+            if (!Enum.IsDefined(typeof(TaskStatus), taskModel.Status))
+            {
+                return BadRequest("Wrong status number, use one of these: 0 (Pending), 1 (InProgress) or 2 (Done).");
+            }
+
             await _taskService.CreateAsync(taskModel);
 
             return CreatedAtRoute("GetTask", new { id = taskModel.Id }, taskModel);
@@ -62,12 +68,12 @@ namespace AvaiacaoAtak.Controllers
 
             if (existingTask == null)
             {
-                return NotFound();
+                return NotFound("Id is missing or invalid to update.");
             }
 
             await _taskService.UpdateAsync(id, taskModel);
 
-            return NoContent();  
+            return Content($"Task: {id} updated with success.");
         }
 
         [HttpDelete("{id:length(24)}")]
@@ -77,12 +83,12 @@ namespace AvaiacaoAtak.Controllers
 
             if (task == null)
             {
-                return NotFound();
+                return NotFound("Id is missing or invalid to delete.");
             }
 
             await _taskService.RemoveAsync(id);
 
-            return NoContent();
+            return Content($"Task: {id} excluded with success.");
         }
 
         [HttpGet("DataAsc")]
