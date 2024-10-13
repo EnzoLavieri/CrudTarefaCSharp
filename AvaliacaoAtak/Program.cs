@@ -1,5 +1,5 @@
-using AvaliacaoAtak.Models;
-using AvaliacaoAtak.Services;
+using AvaiacaoAtak.Models;
+using AvaiacaoAtak.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
