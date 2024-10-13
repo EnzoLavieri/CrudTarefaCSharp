@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using AvaiacaoAtak.Services;
+using AvaliacaoAtak.Services;
+using System.Threading.Tasks;
 
-namespace AvaiacaoAtak.Controllers
+namespace AvaliacaoAtak.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -29,7 +30,7 @@ namespace AvaiacaoAtak.Controllers
 
             if (task == null)
             {
-                return NotFound();
+                return NotFound("Task not founded or invalid Id task number.");
             }
 
             return Ok(task);
@@ -38,18 +39,25 @@ namespace AvaiacaoAtak.Controllers
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetTasksByStatus(string status)
         {
-            if (!Enum.TryParse(typeof(Status), status, true, out var parsedStatus))
+            if (!Enum.TryParse(typeof(TaskStatus), status, true, out var parsedStatus) || !Enum.IsDefined(typeof(TaskStatus), parsedStatus))
             {
-                return BadRequest("Invalid status provided.");
+                return BadRequest("Invalid status provided. Accepted values are: 0 = Pending, 1  = InProgress, 2 = Done.");
+
             }
 
-            var tasks = await _taskService.GetTasksByStatusAsync((Status)parsedStatus);
+            var tasks = await _taskService.GetTasksByStatusAsync((TaskStatus)parsedStatus);
             return Ok(tasks);
         }
 
         [HttpPost]
         public async Task<ActionResult<TaskModel>> Create(TaskModel taskModel)
         {
+
+            if (!Enum.IsDefined(typeof(TaskStatus), taskModel.Status))
+            {
+                return BadRequest("Wrong status number, use one of these: 0 (Pending), 1 (InProgress) or 2 (Done).");
+            }
+
             await _taskService.CreateAsync(taskModel);
 
             return CreatedAtRoute("GetTask", new { id = taskModel.Id }, taskModel);
@@ -62,12 +70,12 @@ namespace AvaiacaoAtak.Controllers
 
             if (existingTask == null)
             {
-                return NotFound();
+                return NotFound("Id is missing or invalid to update.");
             }
 
             await _taskService.UpdateAsync(id, taskModel);
 
-            return NoContent();  
+            return Content($"Task: {id} updated with success.");
         }
 
         [HttpDelete("{id:length(24)}")]
@@ -77,12 +85,12 @@ namespace AvaiacaoAtak.Controllers
 
             if (task == null)
             {
-                return NotFound();
+                return NotFound("Id is missing or invalid to delete.");
             }
 
             await _taskService.RemoveAsync(id);
 
-            return NoContent();
+            return Content($"Task: {id} excluded with success.");
         }
 
         [HttpGet("DataAsc")]
@@ -97,6 +105,7 @@ namespace AvaiacaoAtak.Controllers
         {
             var tasks = await _taskService.GetTasksByCreatedAtDescAsync();
             return Ok(tasks);
+
         }
     }
 }

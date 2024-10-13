@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using AvaiacaoAtak.Models;
+using AvaliacaoAtak.Models;
 
-namespace AvaiacaoAtak.Services
+namespace AvaliacaoAtak.Services 
 {
     public class TaskServices
     {
@@ -34,9 +34,9 @@ namespace AvaiacaoAtak.Services
         public async Task RemoveAsync(string id) =>
             await _taskCollection.DeleteOneAsync(x => x.Id == id);
 
-        public async Task<List<TaskModel>> GetTasksByStatusAsync(Status status)
+        public async Task<List<TaskModel>> GetTasksByStatusAsync(TaskStatus taskStatus)
         {
-            var filter = Builders<TaskModel>.Filter.Eq(task => task.Status, status);
+            var filter = Builders<TaskModel>.Filter.Eq(task => task.Status, taskStatus);
             return await _taskCollection.Find(filter).ToListAsync();
         }
 

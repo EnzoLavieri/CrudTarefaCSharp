@@ -1,4 +1,4 @@
-﻿namespace AvaiacaoAtak.Models
+﻿namespace AvaliacaoAtak.Models
 {
     public class TaskDbSettings
     {
