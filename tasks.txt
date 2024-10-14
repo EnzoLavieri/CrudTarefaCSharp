@@ -1,0 +1,31 @@
+ 1. Funcionalidades CRUD (Critérios eliminatórios)
+  - [✓] Criar Tarefas: Permitir que o usuário adicione novas tarefas com título, descrição e status.
+  - [✓] Listar Tarefas com e sem ID: Exibir uma lista de tarefas já cadastradas, mostrando **título**, **descrição** e **status**.
+  - [✓] Atualizar Tarefas: Permitir a edição de tarefas existentes, permitindo modificar o **título**, **descrição** e **status**.
+  - [✓] Excluir Tarefas: Implementar a funcionalidade para deletar tarefas cadastradas.
+  - [✓] Armazenamento em Arquivo JSON: As operações de criar, ler, atualizar e excluir devem salvar as alterações em um arquivo JSON.
+
+2. Requisitos Técnicos
+   - [✓] Executar sem erros: A aplicação deve funcionar sem erros de execução.
+   - [✓] Arquivo JSON: Todos os dados devem ser persistidos em um arquivo JSON.
+   - [✓] Código-fonte e Execução: Fornecer o código-fonte e instruções claras de como configurar e executar a aplicação localmente.
+
+3. Funcionalidades Desejáveis (Critérios adicionais)
+   - [✓] Filtros e Ordenação: Implementar a capacidade de:
+     - [✓] Filtrar tarefas por status (por exemplo: "concluído", "em andamento").
+     - [✓] Ordenar tarefas por critérios como data de criação, status, etc.
+   - [X] Testes Unitários: Criar testes unitários para as principais funcionalidades (CRUD).
+   Devido ao prazo de entrega, nunca ter tido contato com a linguagem e suas biblioecas, nao tive tempo suficiene para aprender e fazer os testes.  
+   - [X] Deploy da Aplicação: Fazer o deploy em um ambiente gratuito.
+   Tentei fazer deploy na AWS mas deu 3 erros que nao consegui arrumar.
+   - [✓] Código no GitHub: Disponibilizar o código-fonte da aplicação em um repositório público no GitHub.
+
+4. Entregáveis
+   - [✓] Código-fonte: Submeter o código completo da aplicação.
+   - [✓] Instruções de Execução: Fornecer um documento com as instruções sobre como configurar, compilar e executar a aplicação localmente.
+
+Referencias:
+Deplot na AWS: https://www.youtube.com/watch?v=-ZO0_SBUT2E&t=582s
+Api API .NET com mongo: https://www.youtube.com/watch?v=nkYm_b9WCT4
+
+
