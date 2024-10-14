@@ -76,6 +76,12 @@ Content-Type: application/json
 }
 ```
 
+#### Retornar unica tarefa por Id 
+
+```bash
+GET /api/Tasks/{id}
+```
+
 #### Listar todas as tarefas
 
 ```bash
