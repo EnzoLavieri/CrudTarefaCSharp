@@ -51,7 +51,7 @@ namespace AvaiacaoAtak.Controllers
         public async Task<ActionResult<TaskModel>> Create(TaskModel taskModel)
         {
 
-            if (!Enum.IsDefined(typeof(TaskStatus), taskModel.Status))
+            if (!Enum.IsDefined(typeof(Status), taskModel.Status))
             {
                 return BadRequest("Wrong status number, use one of these: 0 (Pending), 1 (InProgress) or 2 (Done).");
             }

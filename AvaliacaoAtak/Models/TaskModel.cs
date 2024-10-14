@@ -15,9 +15,9 @@ public class TaskModel
 
 public enum Status
 {
-    Pending = 0,
-    InProgress = 1,
-    Done = 2
+    Pending ,
+    InProgress,
+    Done 
     //tentar arrumar depos para aceitar apenas as palavras au inves dos numeros
     //da pra fazer timestamps e o Id automatico?
 }
